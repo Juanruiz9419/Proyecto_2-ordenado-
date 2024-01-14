@@ -1,16 +1,11 @@
-import pandas as pd
+import numpy as np
 from datasets import load_dataset
 
 dataset = load_dataset("mstz/heart_failure")
 data = dataset["train"]
 
-df = pd.DataFrame(data)
+edades = data["age"]
+edades_np = np.array(edades)
+promedio_edad = np.mean(edades_np)
 
-total_mujeres = df[df['is_male'] == False].shape[0]
-total_hombres = df[df['is_male'] == True].shape[0]
-
-fumadores_mujeres = df[(df['is_male'] == False) & (df['is_smoker'] == True)].shape[0]
-fumadores_hombres = df[(df['is_male'] == True) & (df['is_smoker'] == True)].shape[0]
-
-print(f"Total de mujeres: {total_mujeres}, Fumadoras: {fumadores_mujeres}")
-print(f"Total de hombres: {total_hombres}, Fumadores: {fumadores_hombres}")
+print(f"La edad promedio de los pacientes es de: {promedio_edad:.0f} años")
